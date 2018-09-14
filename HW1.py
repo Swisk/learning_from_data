@@ -10,18 +10,22 @@ import numpy as np
 
 N = 10
 d = 2
-runs = 1
+runs = 10000
 
 #function that implements the PLA learning algorithm
 def PLA(data, labels):
     
     nloops = 0
-    weights = [[0] * (d)]
+    weights = [[0] * (d + 1)]
     
     while True:
         
         #increment loop counter
         nloops += 1
+        
+        if nloops > 10000:
+            #return number of loops used
+            return nloops
         
         #use current weights to generate hypothesis
         hypothesis = np.sign(np.matmul(weights, np.transpose(data)))
@@ -38,7 +42,7 @@ def PLA(data, labels):
 
         else:
             #return number of loops used
-            return nloops
+            return nloops, weights
 
 #setup for PLA hw problem
 # generate points
@@ -49,6 +53,8 @@ def setup_problem(N):
         points.append(coord)
         
     points = np.array(points)
+    
+    intercept = np.ones((N,1))
     
     # get bisecting line
     point1 = (random.uniform(-1,1), random.uniform(-1,1))
@@ -65,17 +71,25 @@ def setup_problem(N):
             
     labels = np.array(labels)     
     
-    return points, labels
+    points = np.hstack((intercept, points))
+    
+    equation = (a,b)
+    
+    return points, labels, equation
 
-#try plotting the points to ensure setup is correct
-
+#measure probabilty of accuracy
+def measure_accuracy(line_equation):
+    pass
+    
+    
 
 #try running PLA
 run_loops = []
 
 for i in range(runs):
-    points, labels = setup_problem(N)
-    run_loops.append(PLA(points, labels))
+    points, labels, equation = setup_problem(N)
+    nloops, weights = PLA(points, labels)
+    run_loops.append(nloops)
 
 #average number of runs
 print(np.mean(run_loops))
