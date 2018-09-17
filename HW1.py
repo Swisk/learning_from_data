@@ -8,9 +8,9 @@ import random
 import numpy as np
 
 
-N = 10
+N = 100
 d = 2
-runs = 10000
+runs = 1000
 
 #function that implements the PLA learning algorithm
 def PLA(data, labels):
@@ -45,7 +45,7 @@ def PLA(data, labels):
             return nloops, weights
 
 #setup for PLA hw problem
-# generate points
+
 def setup_problem(N):
     points = []
     for i in range(N):
@@ -78,21 +78,49 @@ def setup_problem(N):
     return points, labels, equation
 
 #measure probabilty of accuracy
-def measure_accuracy(line_equation):
-    pass
+def measure_accuracy(weights, g):
+    num = 9999
+    points = []
+    for i in range(num):
+        coord = [random.uniform(-1,1), random.uniform(-1,1)]
+        points.append(coord)
+        
+    points = np.array(points)
     
+    #get true labels
+    g_labels = []
+    
+    for point in points:
+        if point[1] < g[0] * point[0] + g[1]:
+            g_labels.append(1)
+        else:
+            g_labels.append(-1)
+    
+    #get predicted labels
+    intercept = np.ones((num, 1))
+    points = np.hstack((intercept, points))
+    
+    f_labels = np.sign(np.matmul(weights, np.transpose(points)))
+    
+    
+    f_labels = np.array(f_labels)
+    g_labels = np.array(g_labels)    
+    
+    #return percent accurate
+    return np.sum(f_labels == g_labels)/num
     
 
 #try running PLA
 run_loops = []
+acc_loops = []
 
 for i in range(runs):
     points, labels, equation = setup_problem(N)
     nloops, weights = PLA(points, labels)
+    acc = measure_accuracy(weights, equation)
     run_loops.append(nloops)
+    acc_loops.append(acc)
 
 #average number of runs
 print(np.mean(run_loops))
-
-
-#measure probabilty of 
+print(np.mean(acc))
