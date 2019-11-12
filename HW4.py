@@ -9,6 +9,7 @@ import math
 import scipy.integrate as integrate
 import random
 import numpy as np
+import sympy as sym
 
 '''
 Question 1
@@ -28,7 +29,8 @@ for N in [400000,420000,440000,460000,480000]:
 Question 2
 
 evaluate the formulae with given quantities, then compare
-"""
+mH(N) is bounded by dVC, so we substitute
+""" 
 
 print('Question 2')
 
@@ -38,14 +40,29 @@ N=10000
 
 print(math.sqrt((8/N)*math.log((4*(2*N)**d) /sigma)))
 print(math.sqrt((2/N)*math.log((2*N*(N)**d))) + math.sqrt((2/N)*math.log(1/sigma)) + 1/N)
-print(math.sqrt((1/N) * math.log(6/sigma * (2*N)**d)))
-print(math.sqrt(1/(2*N) * (math.log(4/sigma) + math.log((N**2)**d))))
+e = sym.Symbol('e')
+f = sym.Eq(sym.sqrt((1/N) * (2*e + sym.log(6/sigma * (2*N)**d))),e)
+print(sym.solve(f, e))
+
+#bound4 cannot calculate with exact fidelity very easily, so we get an approximation
+test_range = 1000000
+for i in range(test_range):
+    e = i/test_range
+
+    if e < math.sqrt(1/(2*N) * (4*e*(1+e) + math.log(4/sigma) + d*math.log(N**2))):
+        continue
+    else:
+        print(e)
+        break
+
+
 
 
 """
 Question 3
 
 same as question 2 but with different N
+however, since mH(N) is not bounded by dVC, we cannot substitute and instead the growuth function should be 2**N
 """
 
 print('Question 3')
@@ -54,10 +71,26 @@ d=50
 sigma=.05
 N=5
 
-print(math.sqrt((8/N)*math.log((4*(2*N)**d) /sigma)))
-print(math.sqrt((2/N)*math.log((2*N*(N)**d))) + math.sqrt((2/N)*math.log(1/sigma)) + 1/N)
-print(math.sqrt((1/N) * math.log(6/sigma * (2*N)**d)))
-print(math.sqrt(1/(2*N) * (math.log(4/sigma) + math.log((N**2)**d))))
+
+print(math.sqrt((8/N)*math.log((4*2**(2*N)) /sigma)))
+print(math.sqrt((2/N)*math.log((2*N*2**N)) + math.sqrt((2/N)*math.log(1/sigma)) + 1/N))
+e = sym.Symbol('e')
+f = sym.Eq(sym.sqrt((1/N) * (2*e + sym.log(6/sigma * 2**(2*N)))),e)
+print(sym.solve(f, e))
+
+#bound4 cannot calculate with exact fidelity very easily, so we get an approximation
+test_range = 1000000
+for i in range(test_range):
+    e = i/test_range
+
+    if e < math.sqrt(1/(2*N) * (4*e*(1+e) + math.log(4/sigma) + math.log(2**N**2))):
+        continue
+    else:
+        print(e)
+        break
+
+
+
 
 """
 Question 4
@@ -187,6 +220,7 @@ e) is false for the same reason
 """
 
 print('Question 9')
+print('b')
 
 """
 Question 10
@@ -196,8 +230,9 @@ a) is false, because assuming the sets were completely distinct, the additional 
 b) is true if we can assume that there is only ever a single constant term added in the VC analysis (not rigourously shown, but it is a result from the slides)
 c) is false for the same reason as a
 d) is false for the same reason as a
-e) is true as the union must at least be the size of the largest set, and the VC dimension would follow accordingly
+e) is true and tighter as the union must at least be the size of the largest set, and the VC dimension would follow accordingly
 
 """
 
 print('Question 10')
+print('e')
