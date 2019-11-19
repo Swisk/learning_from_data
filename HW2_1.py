@@ -9,6 +9,12 @@ import random
 import math
 import numpy as np
 
+'''
+Question 1
+
+run the experiment
+
+'''
 # flips N number of coins 10 times
 def coin_flip(N):
     
@@ -42,9 +48,26 @@ def flip_experiment(runs):
         
     return v1, vrand, vmin
 
-runs = 100000
+#runs cannot run finish
+runs = 10000
+
 v1, vrand, vmin = flip_experiment(runs)
 
-#calculate hoeffding's 
+print(np.average(vmin))
+
+'''
+It is very likely that only the random coins meet the inequality, as the minimum coin is obviously biased.
+
+'''
+
+#average is 0.5
+#convert to fractions 
+vmin = vmin /10
+#calculate distribution of values within error
+min_error = abs(vmin - 0.5)
+
+#calculate hoeffding's threshold, for some arbitrary error
 error = 0.01
+
+exceed_prob = len(np.where(min_error > error)) / len(min_error)
 thresh = 2 * math.exp(-2*error**2 * 100000)
