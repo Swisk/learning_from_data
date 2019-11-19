@@ -7,6 +7,79 @@ Created on Wed Sep 12 17:50:24 2018
 import random
 import numpy as np
 
+'''
+Question 1
+
+d
+'''
+
+'''
+Question 2
+
+ii and iv are true
+hence  a
+'''
+'''
+Question 3
+
+This question is asking about proper use of priors. Given that a black ball was selected, it is twice as likely that bag with 2 black
+balls in it was selected, as the other bag has a chance of revealing a white ball.
+
+Hence, there is 2/3 chance the other ball is black
+d
+'''
+'''
+Question 4
+
+This probability is simply the chance of not red, ten times in a row
+Evaluating, the answer is therefore b.
+'''
+print(0.45**10)
+
+
+
+'''
+Question 5
+
+Wee identified the probability of v=0 in the previous question. Over 1000 samples, the probability that at least one
+sample has case v=0 is the complement of all samples not having v=0.
+
+The answer is c.
+'''
+v=0.45**10
+
+#all having v is (1-v)**1000
+print(1-(1-v)**1000)
+
+
+'''
+Question 6
+
+Observe the question is merely asking how many points did it get right on the unseen data as the score in a mathematical way.
+
+There is no need to evaluate this explicitly - purely by symmetry, as all combinations of points are covered, any hypothesis must
+be able to match some and not match others equally.
+
+This is because the generation of unseen points does not need to follow any trend ovserved within D, and occurs purely 
+combinatorily.
+
+The answer must be e.
+
+'''
+
+
+
+'''
+Question 7-10
+
+We run the function as given, changing N as necessary.
+
+answers are:
+b
+c
+b
+b
+'''
 
 N = 100
 d = 2
@@ -123,4 +196,4 @@ for i in range(runs):
 
 #average number of runs
 print(np.mean(run_loops))
-print(np.mean(acc))
+print(1-np.mean(acc))
