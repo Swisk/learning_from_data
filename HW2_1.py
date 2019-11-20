@@ -14,6 +14,7 @@ Question 1
 
 run the experiment
 
+answer is closest to b.
 '''
 # flips N number of coins 10 times
 def coin_flip(N):
@@ -48,26 +49,35 @@ def flip_experiment(runs):
         
     return v1, vrand, vmin
 
-#runs cannot run finish
-runs = 10000
+#runs cannot run finish, so reduced in magnitude
+runs = 1000
 
 v1, vrand, vmin = flip_experiment(runs)
+
+#average is 0.5
+#convert to fractions 
+v1 = [(lambda x: x/10)(x) for x in v1]
+vrand = [(lambda x: x/10)(x) for x in vrand]
+vmin = [(lambda x: x/10)(x) for x in vmin]
 
 print(np.average(vmin))
 
 '''
-It is very likely that only the random coins meet the inequality, as the minimum coin is obviously biased.
+Question 2
+
+It is very likely that only the random coins meet the inequality, as the minimum coin is obviously biased. 
+Hence, the answer should be d.
 
 '''
 
-#average is 0.5
-#convert to fractions 
-vmin = vmin /10
-#calculate distribution of values within error
-min_error = abs(vmin - 0.5)
+'''
+Question 3
 
-#calculate hoeffding's threshold, for some arbitrary error
-error = 0.01
+e. Since it is a binary function, we need to account for the case where it corrects the noise. 
+'''
 
-exceed_prob = len(np.where(min_error > error)) / len(min_error)
-thresh = 2 * math.exp(-2*error**2 * 100000)
+'''
+Question 4
+
+b. At this value mu will cancel out.
+'''

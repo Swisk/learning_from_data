@@ -2,13 +2,18 @@
 """
 Created on Wed Sep 12 17:50:24 2018
 
+code split into multiple parts for ease of running
+
 @author: Shane
 """
 import random
 import numpy as np
 from sklearn import linear_model
 
+'''
+Question 5
 
+'''
 N = 10
 d = 2
 runs = 1000
