@@ -84,6 +84,7 @@ print(a_bar)
 Question 5
 
 To calculate the bias, need to evaluate the sum of squared difference (assuming this cost function) over the domain
+We evaluate this between g_bar and the target function f(x)
 
 """
 
@@ -91,3 +92,72 @@ print('Question 5')
 g = lambda x: ((a_bar*x - math.sin(math.pi*x))**2)/2
 print(integrate.quad(g, -1, 1))
 
+
+"""
+Question 6
+
+Similarly, we can calculate the variance by calculating the expectation of the sum of squared difference between every realization of the learned function
+and the "average" hypothesis g_bar
+
+"""
+
+print('Question 6')
+
+#using the prior array of slopes generated
+var = []
+
+for beta in a:
+    g = lambda x: ((a_bar*x - beta*x)**2)/2
+    var.append(integrate.quad(g, -1, 1))
+
+print(np.average(var))
+
+"""
+Question 7
+
+We can analyse the performance of each hypothesis set heuristically. It seems that due to the data complexity, a simpler hypothesis would perform the best. 
+This allows for either h(x) = b or h(x) = ax. It further appears that probabilistically, h(x) = ax would fit the curve better that the straight line.
+
+"""
+
+print('Question 7')
+
+print("ax")
+
+
+"""
+Question 8
+
+Given that the definition of the VC dimension is that mH must equal to 2**n, it seems that the relationship holds as long as the permutation term is zero valued.
+Hence, mH(N + 1) would no longer satisfy this relationship for q = N
+
+"""
+
+print('Question 8')
+
+print("b")
+
+"""
+Question 9
+
+Using general set theory, the intersection cannot be smaller than zero nor larger than the smallest set.
+
+"""
+
+print('Question 9')
+
+print("b")
+
+"""
+Question 10
+
+Again, by general set theory the union cannot be smaller than the largest set.
+Showing that the union of the hypothesis set can be larger that the sum is a little bit tricky. However, by leveraging what we have already seen in the lectures,
+we know that the VC dimension of the 2d perceptron is 3. However, it is clear that the VC dimension of the positive ray (i.e a one way perceptron) is only 1. Ergo, we have a case
+where the VC dimension of the sum exceeds the sum of the VC dimension, and it cannot be that d is true.
+
+"""
+
+print('Question 10')
+
+print("e")
