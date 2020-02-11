@@ -8,7 +8,15 @@ import random
 import numpy as np
 from sklearn import linear_model
 
+'''
+Question 8-10
 
+running it experimentally
+
+d
+
+e
+'''
 N = 1000
 d = 2
 runs = 1000
@@ -27,6 +35,8 @@ def setup_problem(N):
     labels = []
     for point in points:
         true_label = np.sign(point[0]**2 + point[1]**2 - 0.6)
+
+        #adding noise
         if np.random.uniform() < 0.9:
             labels.append(true_label)
         else:
@@ -67,7 +77,7 @@ def measure_accuracy(model):
     return np.sum(f_labels == g_labels)/num
     
 
-#try running PLA
+#try running 
 acc_pre = []
 acc_post = []
 acc_out = []
@@ -84,7 +94,7 @@ for i in range(runs):
     
     acc_pre.append(np.sum(labels == y_pred_pre)/len(labels))
     
-    #train linear regression
+    #train linear regression (with transforms)
     regr2 = linear_model.LinearRegression()
     points2 = np.hstack((points, points ** 2, (points[:, 0] * points [:, 1])[:, None]))
     regr2.fit(points2, labels)

@@ -11,8 +11,16 @@ import numpy as np
 from sklearn import linear_model
 
 '''
-Question 5
+Question 5-7
 
+Running it experimentally to get the output
+
+N = 100
+c
+c
+
+change N = 10
+a
 '''
 N = 10
 d = 2
@@ -84,7 +92,7 @@ def setup_problem(N):
     
     return points, labels, equation
 
-#measure probabilty of accuracy
+#function to measure accuracy for out of sample (newly generated) data
 def measure_accuracy(f, model):
     num = 1000
     points = []

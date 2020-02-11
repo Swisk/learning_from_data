@@ -174,10 +174,9 @@ def measure_accuracy(f, g):
     g_labels = []
     
     for point in points:
-        if point[1] < g[0] * point[0] + g[1]:
-            g_labels.append(1)
-        else:
-            g_labels.append(-1)
+        point_data = np.hstack((np.array(1), point))
+        g_labels.append(np.sign(np.matmul(g, np.transpose(point_data))))
+
 
     f_labels = np.array(f_labels)
     g_labels = np.array(g_labels)    
@@ -196,14 +195,17 @@ def log_reg(labelled_points):
         
         #store a copy of the old weights
         old_weights = weights
+
+        #shuffle points randomly
         random.shuffle(labelled_points)
         
         for point, label in labelled_points:
 
+            #add intercept term
             point_data = np.hstack((np.array(1), point))
 
-            #use current weights to generate hypothesis
-            hypothesis = np.sign(np.matmul(weights, np.transpose(point_data)))
+            #use current weights to generate predicted value and gradient
+            hypothesis = np.matmul(weights, np.transpose(point_data))
             gradient = -(label* point_data)/(1 + math.exp(label * hypothesis))
 
             #update weights
@@ -212,7 +214,6 @@ def log_reg(labelled_points):
         #increment loop counter
         nloops += 1
         
-
         if np.linalg.norm(np.subtract(old_weights, weights)) < 0.01:
             #return number of loops used
             return weights, nloops
@@ -242,13 +243,14 @@ print(np.average(Epochs))
 """
 Question 10
 
-Again, by general set theory the union cannot be smaller than the largest set.
-Showing that the union of the hypothesis set can be larger that the sum is a little bit tricky. However, by leveraging what we have already seen in the lectures,
-we know that the VC dimension of the 2d perceptron is 3. However, it is clear that the VC dimension of the positive ray (i.e a one way perceptron) is only 1. Ergo, we have a case
-where the VC dimension of the sum exceeds the sum of the VC dimension, and it cannot be that d is true.
+The perceptron learning algorithm is unique in that it changes the weights by a sufficient amount to correct any mislabelling for the given point. As such, it must be
+the case that the gradient of the chosen cost function is at least proportional to the needed shift in weights, and likely equal to that necessary shift. (That implicilty
+assumes an eta of 1).
+
+
 
 """
 
 print('Question 10')
 
-print("e")
+print("b")
