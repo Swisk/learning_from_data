@@ -175,14 +175,17 @@ def measure_accuracy(f, g):
     
     for point in points:
         point_data = np.hstack((np.array(1), point))
-        g_labels.append(np.sign(np.matmul(g, np.transpose(point_data))))
+        g_labels.append(np.matmul(g, np.transpose(point_data)))
 
 
     f_labels = np.array(f_labels)
     g_labels = np.array(g_labels)    
     
+
+    #TODO: test error measure 
+    #correct error measure is not classification error, must implement cross entropy error
     #return percent of error
-    return np.sum(f_labels != g_labels)/num
+    return 1/num * sum(math.log1p(1 + math.exp(-f_labels * g_labels)))
 
 def log_reg(labelled_points):
     
