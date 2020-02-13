@@ -22,9 +22,9 @@ print('Question 1')
 sigma = 0.1
 d = 8
 
-for N in [1000, 500, 100, 25, 10]:
+for ans, N in [('a', 10), ('b', 25), ('c', 100), ('d', 500), ('e', 1000)]:
     if sigma**2*(1 - (d+1)/N) > 0.008:
-        print(N)
+        print(ans)
         break
 
 
@@ -47,7 +47,7 @@ The intuition is that the VC dimension is the number of free parameters. After t
 """
 
 print('Question 3')
-print('d')
+print('c')
 
 """
 Question 4
@@ -243,14 +243,13 @@ print(np.average(Epochs))
 """
 Question 10
 
-The perceptron learning algorithm is unique in that it changes the weights by a sufficient amount to correct any mislabelling for the given point. As such, it must be
-the case that the gradient of the chosen cost function is at least proportional to the needed shift in weights, and likely equal to that necessary shift. (That implicilty
-assumes an eta of 1).
-
+The perceptron learning algorithm is unique in that it only cares about fixing any points that are mislabelled, but any points
+correctly labelled are effectively disregarded.
+The only error measure where this is properly accounted for is e.
 
 
 """
 
 print('Question 10')
 
-print("b")
+print("e")
